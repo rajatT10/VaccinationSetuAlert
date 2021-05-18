@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+
+<body>
+  <form (submit)="onSubmit()">
+    <input type="radio" id="pincode" name="type" value="pincode" [(ngModel)]="filterType">
+    <label for="pincode">By Pincode</label><br>
+
+    <input type="radio" id="district" name="type" value="district" [(ngModel)]="filterType">
+    <label for="district">District</label><br>
+
+    <div *ngIf="filterType === 'pincode'">
+      <input type="text" placeholder="Enter Pincode" [(ngModel)]="inputPincode" name="inputPincode" />
+      <input type="date" placeholder="Enter Date" [(ngModel)]="inputDate" name="inputDate" />
+    </div>
+
+    <div *ngIf="filterType === 'district'">
+      <input type="text" placeholder="Enter District Code" [(ngModel)]="districtCode" name="districtCode" />
+      <input type="date" placeholder="Enter Date" [(ngModel)]="inputDate" name="inputDate" />
+    </div>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <h2>Last Updated On: {{lastUpdateOn}}</h2>
+
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Address</th>
+      <th>Total Available Capacity</th>
+      <th>Total Available Capacity for Dose 1</th>
+      <th>Total Available Capacity for Dose 2</th>
+      <th>Fee Type</th>
+      <th>Vaccines available from</th>
+      <th>Available Time slots</th>
+    </tr>
+    <tr *ngFor="let i of result">
+      <td>{{i.slotDate}}</td>
+      <td>{{i.address}}</td>
+      <td>{{i.available_capacity}}</td>
+      <td>{{i.available_capacity_dose1}}</td>
+      <td>{{i.available_capacity_dose2}}</td>
+      <td>{{i.fee_type}}</td>
+      <td>{{i.from}}</td>
+      <td>{{i.available_slots}}</td>
+    </tr>
+  </table>
+
+</body>
+
+</html>
